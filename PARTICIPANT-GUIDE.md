@@ -68,8 +68,9 @@ can tell it to start fresh.)*
   `nlme`"; "render it and show me the error"; "the figure axis labels are
   unreadable, fix them". Steering it is the actual skill.
 - **View the HTML:** after `quarto render`, use the Quarto extension's
-  **Preview** button, or open `analysis.html` (right-click → *Open Preview*), or
-  just download it. Codespaces forwards the preview port automatically.
+  **Preview** button; or right-click `analysis.html` → **Open with Live Server**
+  (that extension is pre-installed); or just download it. Codespaces forwards the
+  preview port automatically.
 
 ### ✅ You're done when
 `analysis.qmd` **and** `analysis.html` both exist, and the HTML reads well:

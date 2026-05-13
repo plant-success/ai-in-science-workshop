@@ -23,14 +23,33 @@ the model and plots the results, and have the agent **check its own work**.
 | path | what it is |
 |------|------------|
 | [`PARTICIPANT-GUIDE.md`](PARTICIPANT-GUIDE.md) | step-by-step for participants (start here) |
-| [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) | the Codespace recipe: R + Quarto + Copilot + the exercise packages |
+| [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json) | the Codespace recipe — points at a prebuilt image, adds the VS Code extensions |
+| [`.devcontainer/Dockerfile`](.devcontainer/Dockerfile) | how that image is built: rocker tidyverse base + Quarto + the exercise R packages |
+| [`scripts/build-image.sh`](scripts/build-image.sh) | build & push the image to GHCR — re-run after editing the Dockerfile |
+| [`.github/workflows/build-devcontainer-image.yml`](.github/workflows/build-devcontainer-image.yml) | same thing, but as a GitHub Action (uses `GITHUB_TOKEN`, no PAT) |
 | [`data/`](data/) | the dataset (`plant_growth.csv`), its data dictionary, and the script that generated it |
 | [`analysis.qmd`](analysis.qmd) | a starting skeleton for the report (the agent can fill it in, or start fresh) |
 
 ## For the organiser
 
-Before the seminar: mark this repo a **Template repository** (Settings → General),
-and set up a **Codespaces prebuild** for `main` (Settings → Codespaces) so
-launches are fast. Pin the devcontainer image tag and do a full dry run (create a
-codespace → run the prompt → render the qmd → time it). Full checklist in the
-seminar project notes (`docs/codespaces-getting-started.md`).
+**1. The dev-container image.** Codespaces here pull a prebuilt image
+(`ghcr.io/plant-success/ai-in-science-workshop:latest`) so they start fast. Build
+it once before the workshop, and re-build whenever you change
+`.devcontainer/Dockerfile`:
+
+- locally: `scripts/build-image.sh` (needs Docker + a `write:packages` PAT — see the script header), **or**
+- on GitHub: run the **build-devcontainer-image** workflow (Actions tab → Run workflow), **or** just push a change to the Dockerfile and it builds automatically.
+
+After the **first** build, make the package **Public** (and confirm the repo has
+access) at `github.com/orgs/Plant-Success/packages`. If you don't have a prebuilt
+image yet, you can temporarily set `devcontainer.json` to `"build": { "dockerfile":
+"Dockerfile" }` to build on launch (slower).
+
+**2. Repo setup.** Mark this repo a **Template repository** (Settings → General).
+A GitHub Codespaces *prebuild* (Settings → Codespaces) is optional once the image
+exists — the image already does the heavy lifting — and only speeds up codespaces
+created on *this* repo, not on copies made from the template.
+
+**3. Dry run.** Create a codespace → open Copilot Chat in **Agent** mode → paste
+the prompt from `PARTICIPANT-GUIDE.md` → let it render `analysis.qmd` → time it.
+Full checklist in the seminar project notes (`docs/codespaces-getting-started.md`).
