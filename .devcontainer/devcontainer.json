@@ -1,0 +1,41 @@
+{
+  // Dev container for the AI-in-science workshop: R + Quarto + GitHub Copilot,
+  // ready to open as a Codespace in the browser. See PARTICIPANT-GUIDE.md.
+  "name": "ai-in-science-workshop",
+
+  // rocker-org devcontainer image: R + tidyverse (ggplot2/dplyr/...) preinstalled.
+  // NOTE: pin this before the workshop and re-test. Check the newest tag at
+  // https://github.com/rocker-org/devcontainer-images (e.g. 4.4 / 4.5 / 4.6).
+  "image": "ghcr.io/rocker-org/devcontainer/tidyverse:4.4",
+
+  "features": {
+    // Quarto CLI (so `quarto render` works in the terminal + the Quarto extension)
+    "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {},
+    // Extra R packages for the mixed-effects exercise
+    "ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
+      "packages": "lme4,broom.mixed,performance,marginaleffects,patchwork"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "REditorSupport.r",
+        "quarto.quarto"
+      ],
+      "settings": {
+        "editor.formatOnSave": false,
+        "files.eol": "\n"
+      }
+    }
+  },
+
+  // Belt-and-braces: if the r-packages feature is slow/flaky, make sure the
+  // exercise packages are present anyway. Harmless if already installed.
+  "postCreateCommand": "Rscript -e 'pkgs <- c(\"lme4\",\"broom.mixed\",\"performance\",\"marginaleffects\",\"patchwork\"); need <- setdiff(pkgs, rownames(installed.packages())); if (length(need)) install.packages(need)' || true"
+
+  // Tip: 2-core is plenty here. To force 4-core for everyone, add:
+  //   "hostRequirements": { "cpus": 4 }
+}

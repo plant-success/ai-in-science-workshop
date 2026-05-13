@@ -1,0 +1,98 @@
+---
+title: "Plant growth: a linear mixed-effects model"
+subtitle: "AI-in-science workshop — worked analysis"
+author: "Your name"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: show
+    embed-resources: true
+    theme: cosmo
+execute:
+  warning: false
+  message: false
+---
+
+<!--
+This is a STARTING SKELETON. Two ways to use it:
+  (a) ask the Copilot agent to fill in / rewrite each section below, or
+  (b) delete everything under the YAML header and ask the agent to write the
+      whole document from scratch.
+The headings below are just a suggested shape — change them freely.
+Render with:  quarto render analysis.qmd   (or the Quarto extension's "Render")
+-->
+
+## What we're doing and why a mixed model
+
+<!-- Explain, for a reader who has never used mixed models:
+     - what the data are (link to data/README.md);
+     - what a *random effect* is, in plain language;
+     - why repeated measurements on the same plant aren't independent, so we need
+       a random intercept (and slope) per plant;
+     - how that differs from the *fixed* effects (week, genotype) we care about
+       on average. -->
+
+## The data
+
+```{r}
+#| label: load-data
+library(tidyverse)
+plants <- readr::read_csv("data/plant_growth.csv")
+glimpse(plants)
+```
+
+<!-- A figure of the raw data showing the group structure: e.g. height vs week,
+     one line per plant, coloured/facetted by genotype. -->
+
+```{r}
+#| label: fig-raw
+#| fig-cap: "Plant height over time, one line per plant, by genotype."
+# ... your ggplot here ...
+```
+
+## Fitting the model
+
+```{r}
+#| label: fit
+library(lme4)
+# m <- lmer(height_cm ~ week * genotype + (week | plant_id), data = plants)
+# summary(m)
+```
+
+<!-- A *tidy* summary of the model (e.g. broom.mixed::tidy(m)); a sentence or two
+     interpreting the fixed effects (do genotypes differ in growth rate?) and the
+     random-effect SDs (how much do plants vary?). -->
+
+## Looking at the fit
+
+<!-- A figure of the fitted/partial effects — e.g. predicted growth trajectories
+     by genotype with uncertainty (marginaleffects / ggeffects), or observed vs.
+     fitted, or the per-plant random slopes. -->
+
+```{r}
+#| label: fig-effects
+#| fig-cap: "Fitted growth trajectories by genotype."
+# ... your ggplot here ...
+```
+
+## Validation: simulate from the fitted model and recover
+
+<!-- The point of this section: convince yourself (and the reader) the fit is
+     trustworthy. One good approach:
+       1. simulate a new response from the fitted model (simulate(m));
+       2. refit the same model to the simulated data;
+       3. check the key parameters (fixed effects, variance components) come
+          back close to the originals.
+     Bonus: also fit the model a second way (e.g. glmmTMB) and check the
+     estimates agree. -->
+
+```{r}
+#| label: validation
+# ... your simulate-and-recover check here ...
+```
+
+## Takeaways
+
+<!-- 3–5 bullets: what we learned about the plants, and what the modelling choices
+     (random intercept + slope, the genotype interaction) actually bought us. -->
