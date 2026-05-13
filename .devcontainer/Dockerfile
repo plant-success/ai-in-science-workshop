@@ -33,9 +33,14 @@ RUN set -eux; \
 # Want PDF output too? add a line:  RUN quarto install tinytex --no-prompt  (bigger image)
 
 # ---------------------------------------------------------------------------
-# Extra R packages for the exercise (tidyverse / ggplot2 are already in the base)
+# Extra R packages for the exercise.
+# We also (re)install ggplot2: the base image's ggplot2 (3.5.1) is too old for
+# the current `patchwork` (which needs ggplot2 >= 3.5.2 / is_ggplot()), and
+# --skipinstalled would otherwise leave the stale version in place. Installing it
+# explicitly (without --skipinstalled) upgrades it to a current, compatible build.
 # ---------------------------------------------------------------------------
-RUN install2.r --error --skipinstalled --ncpus -1 \
+RUN install2.r --error --ncpus -1 \
+      ggplot2 \
       lme4 \
       broom.mixed \
       performance \
