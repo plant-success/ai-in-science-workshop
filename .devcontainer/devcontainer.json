@@ -26,7 +26,10 @@
       ],
       "settings": {
         "editor.formatOnSave": false,
-        "files.eol": "\n"
+        "files.eol": "\n",
+        // reduce first-launch modal friction for workshop participants
+        "security.workspace.trust.enabled": false,
+        "chat.agent.enabled": true
       }
     }
   }

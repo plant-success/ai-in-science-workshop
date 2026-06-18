@@ -10,13 +10,16 @@ the model and plots the results, and have the agent **check its own work**.
 
 ## Quick start
 
-1. Click **`Use this template`** → **`Create a new repository`** (in your own
-   account).
-2. On your new repo: **`<> Code`** → **`Codespaces`** → **`Create codespace on
-   main`**. Wait for VS Code to open in the browser.
+1. **`<> Code`** → **`Codespaces`** → **`Create codespace on main`**. Wait for
+   VS Code to open in the browser (~1–3 min the first time). It's your own
+   private sandbox — just work in it, don't `git push` to this shared repo.
+   *(Want your own copy to keep? Use the green "Use this template" button first.)*
+2. Get Copilot working: accept the "enable AI features / sign in to Copilot"
+   prompt. If Copilot Chat is stuck/blank, run **`Developer: Reload Window`** from
+   the Command Palette (`Ctrl/Cmd+Shift+P`) — don't recreate the codespace.
 3. Open **Copilot Chat** (`Ctrl/Cmd+Alt+I`), set the mode dropdown to **`Agent`**.
 4. Follow **[`PARTICIPANT-GUIDE.md`](PARTICIPANT-GUIDE.md)** — it has the exact
-   prompt to paste and what "done" looks like.
+   prompt to paste, the before-the-session prep, and what "done" looks like.
 
 ## What's in here
 
